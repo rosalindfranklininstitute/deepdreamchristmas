@@ -1,6 +1,6 @@
 import torch.nn as nn
 import torch.nn.functional as F
-from utils.maths import gram_matrix
+from ..utils.maths import gram_matrix
 
 
 class StyleLoss(nn.Module):
