@@ -1,9 +1,9 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from model.normalization import Normalization
-from model.content_loss import ContentLoss
-from model.style_loss import StyleLoss
+from style_transfer.model.normalization import Normalization
+from style_transfer.model.content_loss import ContentLoss
+from style_transfer.model.style_loss import StyleLoss
 
 import torchvision.models as models
 
