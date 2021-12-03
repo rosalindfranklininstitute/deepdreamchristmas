@@ -40,14 +40,9 @@ style_img    = load_image(args.style,   args.size)
 content_img  = load_image(args.content, args.size)
 transfer_img = style_transfer(style_img, content_img, noise=args.style_noise, iter=args.style_iter)
 
-fig, ax = plt.subplots(1, 3)
-plt.sca(ax[0])
-plt.title('Style')
-plt.imshow(tensor_to_image(style_img))
-plt.sca(ax[1])
-plt.title('Content')
-plt.imshow(tensor_to_image(content_img))
-plt.sca(ax[2])
-plt.title('Transfer')
-plt.imshow(tensor_to_image(transfer_img))
-plt.show()
+frame = tensor_to_image(transfer_img)
+frame.save(f'{args.output}.png')
+
+frames = [frame, *deep_dream(transfer_img)]
+
+imageio.mimwrite(f'{args.output}.gif', frames, fps=args.fps)
