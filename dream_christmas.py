@@ -2,7 +2,7 @@ import torch
 import matplotlib.pyplot as plt
 
 from style_transfer.model.generator import Generator
-from style_transfer.utils.img import imshow, image_loader, resize2smallest
+from style_transfer.utils.img import tensor_to_image, image_loader, resize2smallest
 
 import argparse
 
@@ -12,7 +12,7 @@ parser.add_argument("-s", "--style", required=True, help="File path to style ima
 parser.add_argument("-c", "--content", required=True, help="File path to content image")
 parser.add_argument("-i", "--iterations", type=int, default=100, help="Style transfer iterations")
 parser.add_argument("-n", "--noise", type=float, default=0.1, help="Magnitude of noise to add for style transfer")
-
+parser.add_argument("-o", "--output", required=True, help="Output file name for the deep dream gif")
 
 args = parser.parse_args()
 
@@ -29,18 +29,20 @@ def style_transfer(args):
     # Seed image is content image with some optional noise
     input_img = content_img.clone() + (torch.randn(content_img.data.size(), device=device) * args.noise)
 
-    plt.figure()
-    imshow(content_img, title="Content Image")
+    tranfer_img = Generator().run_style_transfer(content_img, style_img, input_img, num_steps=args.iterations)
 
-    plt.figure()
-    imshow(style_img, title="Style Image")
+    return style_img, content_img, tranfer_img
 
-    output = Generator().run_style_transfer(content_img, style_img, input_img, num_steps=args.iterations)
+style_img, content_img, tranfer_img = style_transfer(args)
 
-    plt.figure()
-    imshow(output, title="Output Image")
-
-    plt.ioff()
-    plt.show()
-
-style_transfer(args)
+fig, ax = plt.subplots(1, 3)
+plt.sca(ax[0])
+plt.title('Style')
+plt.imshow(tensor_to_image(style_img))
+plt.sca(ax[1])
+plt.title('Content')
+plt.imshow(tensor_to_image(content_img))
+plt.sca(ax[2])
+plt.title('Transfer')
+plt.imshow(tensor_to_image(tranfer_img))
+plt.show()

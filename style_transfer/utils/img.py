@@ -4,15 +4,11 @@ from PIL import Image
 from torch import float
 
 
-def imshow(tensor, title=None):
+def tensor_to_image(tensor):
     unloader = transforms.ToPILImage()  # reconvert into PIL image
     image = tensor.cpu().clone()  # we clone the tensor to not do changes on it
     image = image.squeeze(0)  # remove the fake batch dimension
-    image = unloader(image)
-    plt.imshow(image)
-    if title is not None:
-        plt.title(title)
-    plt.pause(0.001)  # pause a bit so that plots are updated
+    return unloader(image)
 
 
 def image_loader(image, imsize, device):
