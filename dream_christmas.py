@@ -16,24 +16,25 @@ parser.add_argument("-o", "--output", required=True, help="Output file name for 
 
 args = parser.parse_args()
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-def style_transfer(args):
+# Load style and content images, resize them to the same size, then resize them both to the target resolution
+style_img, content_img = resize2smallest(args.style, args.content)
+style_img = image_loader(style_img, args.size, device)
+content_img = image_loader(content_img, args.size, device)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
-    # Load style and content images, resize them to the same size, then resize them both to the target resolution
-    style_img, content_img = resize2smallest(args.style, args.content)
-    style_img   = image_loader(style_img, args.size, device)
-    content_img = image_loader(content_img, args.size, device)
+def style_transfer(device, style_img, content_img, args):
 
     # Seed image is content image with some optional noise
     input_img = content_img.clone() + (torch.randn(content_img.data.size(), device=device) * args.noise)
 
-    tranfer_img = Generator().run_style_transfer(content_img, style_img, input_img, num_steps=args.iterations)
+    return Generator().run_style_transfer(content_img, style_img, input_img, num_steps=args.iterations)
 
-    return style_img, content_img, tranfer_img
+def deep_dream(device, seed_image, args):
+    pass
 
-style_img, content_img, tranfer_img = style_transfer(args)
+transfer_img = style_transfer(device, style_img, content_img, args)
+
 
 fig, ax = plt.subplots(1, 3)
 plt.sca(ax[0])
@@ -44,5 +45,5 @@ plt.title('Content')
 plt.imshow(tensor_to_image(content_img))
 plt.sca(ax[2])
 plt.title('Transfer')
-plt.imshow(tensor_to_image(tranfer_img))
+plt.imshow(tensor_to_image(transfer_img))
 plt.show()
