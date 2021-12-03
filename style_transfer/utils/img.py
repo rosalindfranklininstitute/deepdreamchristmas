@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import torchvision.transforms as transforms
 from PIL import Image
-from torch import float
+import torch
 
 
 def tensor_to_image(tensor):
@@ -11,23 +11,10 @@ def tensor_to_image(tensor):
     return unloader(image)
 
 
-def image_loader(image, imsize, device):
-    loader = transforms.Compose(
-        [transforms.Resize(imsize), transforms.ToTensor()]  # scale imported image
-    )  # transform it into a torch tensor
-    # fake batch dimension required to fit network's input dimensions
-    image = loader(image).unsqueeze(0)
-    return image.to(device, float)
+def load_image(path, size):
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    loader = transforms.Compose([transforms.ToTensor(), transforms.Resize(size, max_size=size)])
+    image = Image.open(path)
+    image = loader(image).to(device, torch.float).unsqueeze(0)
+    return image
 
-
-def resize2smallest(img1, img2):
-    img1 = Image.open(img1)
-    img2 = Image.open(img2)
-    img1_area = img1.height * img1.width
-    img2_area = img2.height * img2.width
-    if img1_area > img2_area:
-        img1 = img1.resize((img2.width, img2.height))
-
-    else:
-        img2 = img2.resize((img1.width, img1.height))
-    return img1, img2

@@ -1,8 +1,8 @@
 import torch
-import matplotlib.pyplot as plt
+import imageio
 
 from style_transfer.model.generator import Generator
-from style_transfer.utils.img import tensor_to_image, image_loader, resize2smallest
+from style_transfer.utils.img import tensor_to_image, load_image
 
 import argparse
 
@@ -18,28 +18,27 @@ parser.add_argument("--dream_layers", type=str, nargs='+', help="Layer whose act
 
 parser.add_argument("--size", type=int, default=512, help="Output GIF resolution")
 parser.add_argument("--fps", type=int, default=10, help="Output GIF framerate")
-parser.add_argument("--output", default="output.gif", help="Output GIF filename")
+parser.add_argument("--output", default="output", help="Output GIF filename")
 
 args = parser.parse_args()
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# Load style and content images, resize them to the same size, then resize them both to the target resolution
-style_img, content_img = resize2smallest(args.style, args.content)
-style_img = image_loader(style_img, args.size, device)
-content_img = image_loader(content_img, args.size, device)
-
-def style_transfer(device, style_img, content_img, args):
+def style_transfer(style_img, content_img, noise=0.0, iter=100):
+    # Use GPU if available
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # Seed image is content image with some optional noise
-    input_img = content_img.clone() + (torch.randn(content_img.data.size(), device=device) * args.style_noise)
+    input_img = content_img.clone() + (torch.randn(content_img.data.size(), device=device) * noise)
     # Apply style transfer
-    return Generator().run_style_transfer(content_img, style_img, input_img, num_steps=args.style_iter)
+    return Generator().run_style_transfer(content_img, style_img, input_img, num_steps=iter)
 
-def deep_dream(device, seed_image, args):
-    pass
 
-transfer_img = style_transfer(device, style_img, content_img, args)
+def deep_dream(seed_image):
+    return []
 
+
+style_img    = load_image(args.style,   args.size)
+content_img  = load_image(args.content, args.size)
+transfer_img = style_transfer(style_img, content_img, noise=args.style_noise, iter=args.style_iter)
 
 fig, ax = plt.subplots(1, 3)
 plt.sca(ax[0])
