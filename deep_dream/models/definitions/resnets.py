@@ -5,8 +5,6 @@ import torch
 from torchvision import models
 from torch.hub import download_url_to_file
 
-from ..utils.constants import *
-
 
 class ResNet50(torch.nn.Module):
     """Only those layers are exposed which have already proven to work nicely."""

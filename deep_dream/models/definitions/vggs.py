@@ -3,7 +3,7 @@ from collections import namedtuple
 import torch
 from torchvision import models
 
-from ..utils.constants import SupportedPretrainedWeights
+from deep_dream.utils import SupportedPretrainedWeights
 
 
 class Vgg16(torch.nn.Module):
