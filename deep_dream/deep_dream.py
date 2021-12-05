@@ -201,6 +201,7 @@ class DeepDream:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
         self.model = GoogLeNet(requires_grad=False, show_progress=True).to(self.device)
+        print(self.model.layer_names)
         self.layer_ids_to_use = [self.model.layer_names.index(layer_name) for layer_name in self.layers_to_use]
 
     def gradient_ascent(self, input_tensor, iteration):
