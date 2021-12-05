@@ -23,9 +23,11 @@ parser.add_argument("--output", default="output", help="Output filename")
 args = parser.parse_args()
 
 
-style_img    = load_image(args.style,   args.size)
 content_img  = load_image(args.content, args.size)
-transfer_img = StyleTransfer().transfer(content_img, style_img, noise=args.style_noise, num_steps=args.style_iter)
+style_img    = load_image(args.style,   content_img.shape[-2:])
+
+style_transfer = StyleTransfer()
+transfer_img = style_transfer.transfer(content_img, style_img, noise=args.style_noise, num_steps=args.style_iter)
 
 frame = tensor_to_image(transfer_img)
 frame.save(f'{args.output}.png')
