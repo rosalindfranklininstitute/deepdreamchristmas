@@ -35,7 +35,7 @@ transfer_img = style_transfer.transfer(content_img, style_img, noise=args.style_
 frame = tensor_to_image(transfer_img)
 frame.save(f'{args.output}.png')
 
-# 'inception4c', 'inception4d', 'inception4e'
-deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception3b'], step_size=0.02)
-frames = [frame, *map(tensor_to_image, deep_dream.dream_sequence(transfer_img, frames=(args.fps * args.length)))]
+# 'inception3b' 'inception4c', 'inception4d',
+deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception4e'], step_size=0.01)
+frames = [frame, *map(tensor_to_image, deep_dream.dream_sequence(transfer_img, frames=(args.fps * args.length), rotate=0.1))]
 imageio.mimwrite(f'{args.output}.gif', frames, fps=args.fps)
