@@ -1,14 +1,11 @@
-import matplotlib.pyplot as plt
-import torchvision.transforms as transforms
 from PIL import Image
 import torch
+import torchvision.transforms as transforms
 
 
 def tensor_to_image(tensor):
-    unloader = transforms.ToPILImage()  # reconvert into PIL image
-    image = tensor.cpu().clone()  # we clone the tensor to not do changes on it
-    image = image.squeeze(0)  # remove the fake batch dimension
-    return unloader(image)
+    image = tensor.squeeze(0).cpu().clone()
+    return transforms.ToPILImage()(image)
 
 
 def load_image(path, size):
