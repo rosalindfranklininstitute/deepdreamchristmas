@@ -14,13 +14,6 @@ from torchvision import models
 from collections import namedtuple
 
 
-IMAGENET_MEAN = np.array([0.485, 0.456, 0.406], dtype=np.float32)
-IMAGENET_STD  = np.array([0.229, 0.224, 0.225], dtype=np.float32)
-
-LOWER_IMAGE_BOUND = np.array([-IMAGENET_MEAN / IMAGENET_STD], dtype=np.float32).reshape((1, -1, 1, 1))
-UPPER_IMAGE_BOUND = np.array([(1 - IMAGENET_MEAN) / IMAGENET_STD], dtype=np.float32).reshape((1, -1, 1, 1))
-
-
 class GoogLeNet(nn.Module):
     """Only those layers are exposed which have already proven to work nicely."""
 
@@ -204,6 +197,12 @@ class DeepDream:
         print(self.model.layer_names)
         self.layer_ids_to_use = [self.model.layer_names.index(layer_name) for layer_name in self.layers_to_use]
 
+        self.IMAGENET_MEAN = torch.tensor([0.485, 0.456, 0.406], device=self.device, dtype=torch.float32).reshape((1, -1, 1, 1))
+        self.IMAGENET_STD = torch.tensor([0.229, 0.224, 0.225], device=self.device, dtype=torch.float32).reshape((1, -1, 1, 1))
+
+        self.LOWER_IMAGE_BOUND = -self.IMAGENET_MEAN / self.IMAGENET_STD
+        self.UPPER_IMAGE_BOUND = (1 - self.IMAGENET_MEAN) / self.IMAGENET_STD
+
     def gradient_ascent(self, input_tensor, iteration):
         # loss.backward(layer) <- original implementation did it like this it's equivalent to MSE(reduction='sum')/2
 
@@ -246,7 +245,7 @@ class DeepDream:
 
         # Step 5: Clear gradients and clamp the data (otherwise values would explode to +- "infinity")
         input_tensor.grad.data.zero_()
-        input_tensor.data = torch.max(torch.min(input_tensor, UPPER_IMAGE_BOUND), LOWER_IMAGE_BOUND)
+        input_tensor.data = torch.max(torch.min(input_tensor, self.UPPER_IMAGE_BOUND), self.LOWER_IMAGE_BOUND)
 
 
     def dream(self, image):
@@ -255,7 +254,7 @@ class DeepDream:
         if is_chw:
             image = torch.moveaxis(image, 0, 2)
 
-        image = (image - IMAGENET_MEAN) / IMAGENET_STD
+        image = (image - self.IMAGENET_MEAN) / self.IMAGENET_STD
         image = image.unsqueeze(0)
         image.requires_grad = True
 
@@ -267,7 +266,7 @@ class DeepDream:
 
             image = circular_spatial_shift(image, h_shift, w_shift, should_undo=True)
 
-        image = (image.squeeze() * IMAGENET_STD) + IMAGENET_STD
+        image = (image.squeeze() * self.IMAGENET_STD) + self.IMAGENET_STD
         image = torch.clip(image, 0., 1.)
 
         if is_chw:
