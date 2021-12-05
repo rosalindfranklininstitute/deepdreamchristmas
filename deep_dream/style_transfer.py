@@ -161,7 +161,7 @@ class StyleTransfer:
 
                 run[0] += 1
                 if run[0] % 50 == 0:
-                    print(f"Iteration : {run:4d} Style Loss : {style_score.item():4f} Content Loss: {content_score.item():4f}")
+                    print(f"Iteration : {run[0]:4d} Style Loss : {style_score:4f} Content Loss: {content_score:4f}")
 
                 return style_score + content_score
 
