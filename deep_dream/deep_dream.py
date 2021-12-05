@@ -246,7 +246,7 @@ class DeepDream:
 
     def dream(self, image):
 
-        image = (image - self.IMAGENET_MEAN) / self.IMAGENET_STD
+        #image = (image - self.IMAGENET_MEAN) / self.IMAGENET_STD
         image = image.detach()
         image.requires_grad = True
 
@@ -258,7 +258,7 @@ class DeepDream:
 
             image = circular_spatial_shift(image, h_shift, w_shift, should_undo=True)
 
-        image = (image.squeeze() * self.IMAGENET_STD) + self.IMAGENET_STD
+        #image = (image.squeeze() * self.IMAGENET_STD) + self.IMAGENET_STD
         image = torch.clip(image, 0., 1.)
 
         return image
