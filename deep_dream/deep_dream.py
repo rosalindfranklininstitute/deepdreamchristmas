@@ -10,6 +10,7 @@ import numpy as np
 import torch
 from torch import nn
 from torchvision import models
+import torchvision.transforms as transforms
 
 from collections import namedtuple
 
@@ -264,9 +265,10 @@ class DeepDream:
         return image
 
 
-    def dream_sequence(self, image, frames=24):
+    def dream_sequence(self, image, frames=24, rotate=2):
 
         for frame in range(frames):
+            image = transforms.functional.affine(image, angle=rotate, scale=1.05)
             image = self.dream(image)
             yield image
 
