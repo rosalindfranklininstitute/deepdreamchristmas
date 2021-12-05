@@ -167,13 +167,11 @@ def circular_spatial_shift(tensor, h_shift, w_shift, should_undo=False):
 class DeepDream:
 
     def __init__(self, gradient_ascent_steps=10, smoothing_coefficient=0.5, step_size=0.09,
-                 pyramid_size=1, pyramid_ratio=1.2, spatial_shift_size=32, layers_to_use=None):
+                 spatial_shift_size=32, layers_to_use=None):
 
         self.gradient_ascent_steps = gradient_ascent_steps
         self.smoothing_coefficient = smoothing_coefficient
         self.step_size = step_size
-        self.pyramid_size = pyramid_size
-        self.pyramid_ratio = pyramid_ratio
         self.spatial_shift_size = spatial_shift_size
 
         if layers_to_use is None:
@@ -257,37 +255,12 @@ class DeepDream:
         return image
 
 
-#     def deep_dream_video_ouroboros(config):
-#         """
-#         Feeds the output dreamed image back to the input and repeat
-#
-#         Name etymology for nerds: https://en.wikipedia.org/wiki/Ouroboros
-#
-#         """
-#         ts = time.time()
-#         assert any([config['input_name'].lower().endswith(img_ext) for img_ext in SUPPORTED_IMAGE_FORMATS]), \
-#             f'Expected an image, but got {config["input_name"]}. Supported image formats {SUPPORTED_IMAGE_FORMATS}.'
-#
-#         utils.print_ouroboros_video_header(config)  # print some ouroboros-related metadata to the console
-#
-#         img_path = utils.parse_input_file(config['input'])
-#         # load numpy, [0, 1] range, channel-last, RGB image
-#         # use_noise and consequently None value, will cause it to initialize the frame with uniform, [0, 1] range, noise
-#         frame = None if config['use_noise'] else utils.load_image(img_path, target_shape=config['img_width'])
-#
-#         for frame_id in range(config['ouroboros_length']):
-#             print(f'Ouroboros iteration {frame_id+1}.')
-#             # Step 1: apply DeepDream and feed the last iteration's output to the input
-#             frame = deep_dream_static_image(config, frame)
-#             dump_path = utils.save_and_maybe_display_image(config, frame, name_modifier=frame_id)
-#             print(f'Saved ouroboros frame to: {os.path.relpath(dump_path)}\n')
-#
-#             # Step 2: transform frame e.g. central zoom, spiral, etc.
-#             # Note: this part makes amplifies the psychodelic-like appearance
-#             frame = utils.transform_frame(config, frame)
-#
-#         video_utils.create_video_from_intermediate_results(config)
-#         print(f'time elapsed = {time.time()-ts} seconds.')
+    def dream_sequence(self, image, frames=24):
+
+        for frame in range(frames):
+            image = self.dream(image)
+            yield image
+
 #
 # if __name__ == "__main__":
 #
