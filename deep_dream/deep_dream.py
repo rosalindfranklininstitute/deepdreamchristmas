@@ -239,12 +239,8 @@ class DeepDream:
 
     def dream(self, image):
 
-        is_chw = (image.shape[0] == 3)
-        if is_chw:
-            image = torch.moveaxis(image, 0, 2)
-
         image = (image - self.IMAGENET_MEAN) / self.IMAGENET_STD
-        image = image.unsqueeze(0).detach()
+        image = image.detach()
         image.requires_grad = True
 
         for iteration in range(self.gradient_ascent_steps):
@@ -257,9 +253,6 @@ class DeepDream:
 
         image = (image.squeeze() * self.IMAGENET_STD) + self.IMAGENET_STD
         image = torch.clip(image, 0., 1.)
-
-        if is_chw:
-            image = torch.moveaxis(image, 2, 0)
 
         return image
 
