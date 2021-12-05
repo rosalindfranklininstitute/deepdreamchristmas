@@ -265,10 +265,10 @@ class DeepDream:
         return image
 
 
-    def dream_sequence(self, image, frames=24, rotate=2):
+    def dream_sequence(self, image, frames=24, rotate=0.5):
 
         for frame in range(frames):
-            image = transforms.functional.affine(image, angle=rotate, translate=(0, 0), scale=1.05, shear=0)
+            image = transforms.functional.affine(image, angle=rotate, translate=(0, 0), scale=1.01, shear=0)
             image = self.dream(image)
             yield image
 
