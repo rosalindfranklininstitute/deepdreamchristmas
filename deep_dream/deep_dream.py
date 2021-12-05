@@ -195,7 +195,7 @@ class DeepDream:
         self.spatial_shift_size = spatial_shift_size
 
         if layers_to_use is None:
-            layers_to_use = ['mixed3', 'mixed5']
+            layers_to_use = ['inception3b', 'inception4c', 'inception4d', 'inception4e']
         self.layers_to_use = layers_to_use
 
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
