@@ -1,5 +1,6 @@
 import imageio
 import torch
+import torchvision.transforms as transforms
 
 from deep_dream.style_transfer import StyleTransfer
 from deep_dream.deep_dream import DeepDream
@@ -26,7 +27,7 @@ args = parser.parse_args()
 
 content_img  = load_image(args.content, args.size)
 style_img    = load_image(args.style, args.size)
-style_img = torch.transform.Resize(content_img.shape[-2:])(style_img)
+style_img = transforms.Resize(content_img.shape[-2:])(style_img)
 
 style_transfer = StyleTransfer()
 transfer_img = style_transfer.transfer(content_img, style_img, noise=args.style_noise, num_steps=args.style_iter)
