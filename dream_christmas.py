@@ -30,6 +30,7 @@ transfer_img = StyleTransfer().transfer(style_img, content_img, noise=args.style
 frame = tensor_to_image(transfer_img)
 frame.save(f'{args.output}.png')
 
+print(transfer_img.shape)
 frame = tensor_to_image(DeepDream().dream(transfer_img))
 frame.save(f'{args.output}-dream.png')
 
