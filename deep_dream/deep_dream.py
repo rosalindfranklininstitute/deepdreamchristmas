@@ -255,7 +255,7 @@ class DeepDream:
             image = torch.moveaxis(image, 0, 2)
 
         image = (image - self.IMAGENET_MEAN) / self.IMAGENET_STD
-        image = image.unsqueeze(0).clone()
+        image = image.unsqueeze(0).detach()
         image.requires_grad = True
 
         for iteration in range(self.gradient_ascent_steps):
