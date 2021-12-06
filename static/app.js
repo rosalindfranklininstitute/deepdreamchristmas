@@ -30,7 +30,7 @@ class HostApp extends React.Component {
                                 <h3 className="float-md-start mb-0">RFI Christmas Dream</h3>
                                 <nav className="nav nav-masthead justify-content-center float-md-end">
                                     <a className="nav-link" aria-current="page" href="#">Upload</a>
-                                    <a className="nav-link active" href="/">Home</a>
+                                    <a className="nav-link active" href="/">Gallery</a>
                                     <a className="nav-link" href="/about">About</a>
                                 </nav>
                             </div>
