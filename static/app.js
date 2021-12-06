@@ -24,11 +24,10 @@ class HostApp extends React.Component {
         return (
             <div className="fill">
                 <div className="d-flex h-100 text-center text-white">
-                    <svg id="root-canvas" className="fill"/>
                     <div id="root-ui" className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
                         <header className="mb-auto">
                             <div>
-                                <h3 className="float-md-start mb-0">RFI Christmas Dream</h3>
+                                <h3 className="float-md-start mb-0"><a href="/">RFI Christmas Dream</a></h3>
                                 <nav className="nav nav-masthead justify-content-center float-md-end">
                                     <a className="nav-link active" aria-current="page" href="#">Upload</a>
                                     <a className="nav-link" href="/about">About</a>
