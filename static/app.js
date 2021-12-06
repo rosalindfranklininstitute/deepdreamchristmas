@@ -36,8 +36,10 @@ class HostApp extends React.Component {
                             </div>
                         </header>
                         <main className="px-3">
-                            <div className="row">
-                                {this.state.images.map((image) => <div className="col-xs-4"><img className="img-thumbnail" alt="" src={image}/></div>)}
+                            <div className="container">
+                                <div className="row">
+                                    {this.state.images.map((image) => <div className="col-xs-4"><img className="img-thumbnail" alt="" src={image}/></div>)}
+                                </div>
                             </div>
                         </main>
                         <footer className="mt-auto text-white-50">
