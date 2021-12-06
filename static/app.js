@@ -23,7 +23,7 @@ class HostApp extends React.Component {
 
         return (
             <div className="fill">
-                <div className="d-flex h-100 text-center text-white bg-dark">
+                <div className="d-flex h-100 text-center text-white">
                     <svg id="root-canvas" className="fill"/>
                     <div id="root-ui" className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
                         <header className="mb-auto">
