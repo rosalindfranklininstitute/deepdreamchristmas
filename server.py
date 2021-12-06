@@ -2,19 +2,7 @@ from glob import glob
 import json
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 
-from rq import Queue
-from rq.job import Job
-from worker import conn
-
-q = Queue(connection=conn)
-
 app = Flask(__name__, static_url_path='')
-
-def process_upload(fedid, password, image):
-    import json
-
-    with open('upload-job.txt', 'w') as fp:
-        fp.write(json.dumps({ 'fedid': fedid, 'password': password, 'image': image }))
 
 @app.route('/')
 def index():
@@ -37,14 +25,11 @@ def serve_images_index():
     elif request.method == "POST":
 
         with open('upload.txt', 'w') as fp:
-            fp.write(json.dumps({'fedid': request.form['fedidInput'],
-                                 'password': request.form['passwordInput'],
-                                 'image': request.form['imageInput']}))
+            fp.write(json.dumps({ 'fedid': request.form['fedidInput'],
+                                  'password': request.form['passwordInput'],
+                                  'image': request.form['imageInput'] }))
 
-        job = q.enqueue_call(func=process_upload, args=(request.form['fedidInput'],
-                                                        request.form['passwordInput'],
-                                                        request.form['imageInput']), result_ttl=5000)
-        return json.dumps({ 'id': job.get_id() })
+        return json.dumps({ 'fedid': request.form['fedidInput'] })
 
 
 @app.route('/images/<path:path>')
