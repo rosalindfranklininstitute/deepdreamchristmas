@@ -25,10 +25,33 @@ class HostApp extends React.Component {
             <div id="app-root" className="fill">
                 <div className="d-flex h-100 text-center text-white">
                     <div id="root-ui" className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+                        <div className="modal fade" id="uploadModal" tabIndex="-1" role="dialog"
+                             aria-labelledby="uploadModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="uploadModalLabel">Upload Image</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        ...
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" className="btn btn-primary">Upload</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <header>
                             <div>
                                 <h3 className="float-md-start mb-0">RFI Christmas Dream</h3>
                                 <nav className="nav nav-masthead justify-content-center float-md-end">
+                                    <button type="button" className="btn btn-light" data-toggle="modal" data-target="#uploadModal">Upload</button>
                                     <a className="nav-link" aria-current="page" href="#">Upload</a>
                                     <a className="nav-link active" href="/">Gallery</a>
                                     <a className="nav-link" href="/about">About</a>
