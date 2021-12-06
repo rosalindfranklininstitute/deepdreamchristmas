@@ -15,6 +15,10 @@ html, body, .fill {
     overflow: scroll;
 }
 
+#root-ui::-webkit-scrollbar {
+    display: none;
+}
+
 #root {
     background-image:    url(/static/snow.jpg);
     background-size:     cover;
