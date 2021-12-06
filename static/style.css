@@ -6,11 +6,8 @@ html, body, .fill {
 }
 
 #root-ui {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+    width: 100%;
+    height: calc(100vh - calc(100vh - 100%));
     z-index: 10;
     overflow: scroll;
 }
@@ -20,6 +17,8 @@ html, body, .fill {
 }
 
 #root {
+    width: 100%;
+    height: calc(100vh - calc(100vh - 100%));
     background-image:    url(/static/snow.jpg);
     background-size:     cover;
     background-repeat:   no-repeat;
