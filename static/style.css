@@ -6,22 +6,11 @@ html, body, .fill {
     overflow: hidden;
 }
 
-#root-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 9;
-}
-
-#root-ui {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 10;
+body {
+    background-image:    url(/static/snow.webp);
+    background-size:     cover;
+    background-repeat:   no-repeat;
+    background-position: center center;
 }
 
 .bd-placeholder-img {
