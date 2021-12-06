@@ -31,7 +31,7 @@ html, body, .fill {
 }
 
 #uploadModal {
-    z-index: 100;
+    z-index: 1100;
 }
 
 .bd-placeholder-img {
