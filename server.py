@@ -31,7 +31,7 @@ def serve_images_index():
 
         #return redirect('/')
 
-        return json.dumps({'fedid': request.form['fedidInput'], 'password': request.form['passwordInput'] })
+        return json.dumps({ 'fedid': request.form['fedidInput'] })
 
 
 
