@@ -24,12 +24,12 @@ def serve_images_index():
 
     elif request.method == "POST":
 
-        with open('upload.txt', 'w') as fp:
-            fp.write(json.dumps({ 'fedid': request.form['fedidInput'],
-                                  'password': request.form['passwordInput'],
-                                  'image': request.form['imageInput'] }))
+        # with open('upload.txt', 'w') as fp:
+        #     fp.write(json.dumps({ 'fedid': request.form['fedidInput'],
+        #                           'password': request.form['passwordInput'],
+        #                           'image': request.form['imageInput'] }))
 
-        return json.dumps({ 'fedid': request.form['fedidInput'] })
+        return redirect('/')
 
 
 @app.route('/images/<path:path>')
