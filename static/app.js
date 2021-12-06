@@ -38,7 +38,7 @@ class HostApp extends React.Component {
                         <main className="px-3">
                             <div className="container">
                                 <div className="row">
-                                    {this.state.images.map((image) => <div className="col-xs-4"><img className="img-thumbnail" alt="" src={image}/></div>)}
+                                    {this.state.images.map((image) => <div className="col-md-4 col-xs-12"><img className="img-thumbnail" alt="" src={image}/></div>)}
                                 </div>
                             </div>
                         </main>
