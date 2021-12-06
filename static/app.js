@@ -35,17 +35,10 @@ class HostApp extends React.Component {
                                 </nav>
                             </div>
                         </header>
-                        <main id="device-link" className="px-3">
-                            <h1>RFI Christmas Dream</h1>
-                            <p className="lead">
-                                <ul>{this.state.images.map((image) => <li><img alt="" src={image} /></li>)}</ul>
-                            </p>
-                            <p className="lead">
-
-                            </p>
-                            <p>
-
-                            </p>
+                        <main className="px-3">
+                            <div className="row">
+                                {this.state.images.map((image) => <div className="col-xs-4"><img className="img-thumbnail" alt="" src={image}/></div>)}
+                            </div>
                         </main>
                         <footer className="mt-auto text-white-50">
                             <p></p>
