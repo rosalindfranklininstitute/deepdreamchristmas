@@ -22,7 +22,7 @@ class HostApp extends React.Component {
     render() {
 
         return (
-            <div className="fill">
+            <div id="app-root" className="fill">
                 <div className="d-flex h-100 text-center text-white">
                     <div id="root-ui" className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
                         <header className="mb-auto">

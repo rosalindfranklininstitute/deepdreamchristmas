@@ -29,6 +29,10 @@ html, body, .fill {
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center;
+}
+
+#app-root {
+    background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(5px);
 }
 
