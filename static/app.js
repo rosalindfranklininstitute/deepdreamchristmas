@@ -25,7 +25,7 @@ class HostApp extends React.Component {
             <div id="app-root" className="fill">
                 <div className="d-flex h-100 text-center text-white">
                     <div id="root-ui" className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
-                        <header className="mb-auto">
+                        <header>
                             <div>
                                 <h3 className="float-md-start mb-0">RFI Christmas Dream</h3>
                                 <nav className="nav nav-masthead justify-content-center float-md-end">
@@ -40,7 +40,7 @@ class HostApp extends React.Component {
                                 {this.state.images.map((image) => <div className="col-md-4 col-xs-12"><img className="img-thumbnail mt-1 mb-1" alt="" src={image}/></div>)}
                             </div>
                         </div>
-                        <footer className="mt-auto text-white-50">
+                        <footer className="text-white-50">
                             <p></p>
                         </footer>
                     </div>
