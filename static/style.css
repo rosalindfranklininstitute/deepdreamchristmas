@@ -29,6 +29,7 @@ html, body, .fill {
     background-size:     cover;
     background-repeat:   no-repeat;
     background-position: center center;
+    backdrop-filter: blur(5px);
 }
 
 .bd-placeholder-img {
