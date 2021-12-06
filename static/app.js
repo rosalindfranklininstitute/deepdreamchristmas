@@ -2,12 +2,20 @@
 class HostApp extends React.Component {
 
     state = {
-
+        images: []
     };
 
     componentDidMount() {
-
-
+        fetch("/images")
+            .then(res => res.json()).then(
+                (result) => {
+                    this.setState({
+                        images: result.images
+                    });
+                },
+                (error) => {
+                    console.log(error);
+                });
 
     }
 
@@ -30,7 +38,7 @@ class HostApp extends React.Component {
                         <main id="device-link" className="px-3">
                             <h1>RFI Christmas Dream</h1>
                             <p className="lead">
-
+                                <ul>{this.state.images.map((image) => <li><img alt="" src={image} /></li>)}</ul>
                             </p>
                             <p className="lead">
 

@@ -18,7 +18,7 @@ def serve_static(path):
 
 @app.route('/images')
 def serve_images_index():
-    return json.dumps({ 'images': list(glob('images/*')) })
+    return json.dumps({ 'images': list(map(lambda path: f'/{path}', glob('images/*'))) })
 
 @app.route('/images/<path:path>')
 def serve_images(path):
