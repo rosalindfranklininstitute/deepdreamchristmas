@@ -11,6 +11,9 @@ q = Queue(connection=conn)
 app = Flask(__name__, static_url_path='')
 
 def process_upload(request):
+    from glob import glob
+    import json
+    from flask import request
 
     with open('upload.txt', 'w') as fp:
         fp.write(json.dumps(request))
