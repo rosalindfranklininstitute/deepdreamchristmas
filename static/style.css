@@ -30,6 +30,10 @@ html, body, .fill {
     backdrop-filter: blur(5px);
 }
 
+#uploadModal {
+    z-index: 100;
+}
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
