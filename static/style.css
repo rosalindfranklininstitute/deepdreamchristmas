@@ -24,7 +24,7 @@ html, body, .fill {
     z-index: 10;
 }
 
-body {
+#root {
     background-image:    url(/static/snow.webp);
     background-size:     cover;
     background-repeat:   no-repeat;
