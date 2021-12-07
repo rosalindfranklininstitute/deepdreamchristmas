@@ -50,7 +50,7 @@ def interpolate_frames(frames, index):
     return ((frames[x0] * (1.0 - delta)) + (frames[x1] * delta)).astype(np.uint8)
 
 def easeInOutCirc(x):
-    return ((1 - np.sqrt(1 - np.pow(2 * x, 2))) / 2) if (x < 0.5) else ((np.sqrt(1 - np.pow(-2 * x + 2, 2)) + 1) / 2)
+    return ((1 - np.sqrt(1 - np.power(2 * x, 2))) / 2) if (x < 0.5) else ((np.sqrt(1 - np.power(-2 * x + 2, 2)) + 1) / 2)
 
 indices = list(map(easeInOutCirc, np.linspace(0.0, 1.0, (args.fps * args.length)))) * (len(frames) - 1)
 
