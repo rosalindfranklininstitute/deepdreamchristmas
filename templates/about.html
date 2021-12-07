@@ -24,10 +24,22 @@
                             </nav>
                         </div>
                     </header>
-                    <main class="px-3">
+                    <main class="px-3 mt-2">
                         <h1>RFI AI's Christmas Dream</h1>
                         <p class="lead">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            This (rather hastily put together) website utilizes <a href="https://arxiv.org/abs/1508.06576">Neural Style Transfer [Gatys et al, 2015]</a> and <a href="https://ai.googleblog.com/2015/06/inceptionism-going-deeper-into-neural.html">Google's Deep Dream</a> algorithm to take an input image stylize it in a psychedelic way.
+                        </p>
+                        <p>
+                            A neural network that has been trained to be able to classify different natural images, such as telling the difference between pictures of cats vs dogs, will have learned much about the textural and colour differences between images of cats and those of dogs.
+                        </p>
+                        <p>
+                            Rather than asking the trained network to tell us which class it thinks and image is, we instead ask the network to tell us how to make the input image <em>more</em> like a cat or dog.
+                        </p>
+                        <p>
+                            The result is the network pushes each of the coloured pixels in the direction that would make the whole image register stronger as that class. This is refered to as allowing the network to "dream".
+                        </p>
+                        <p>
+                            This style of computer "dreamt" art is inspired by early works in science fiction such as <a href="https://en.wikipedia.org/wiki/Do_Androids_Dream_of_Electric_Sheep%3F">Do Androids Dream of Electric Sheep?</a>.
                         </p>
                     </main>
                     <footer class="text-white-50">
