@@ -34,3 +34,6 @@ def serve_images_index():
 @app.route('/images/<path:path>')
 def serve_images(path):
     return send_from_directory('images', path)
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
