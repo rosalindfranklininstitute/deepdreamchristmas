@@ -41,8 +41,8 @@ def interpolate_frames(frames, index):
 
     index = (index * 0.9999) + 0.00001
 
-    x0 = np.floor(index)
-    x1 = (x0 + 1)
+    x0 = np.int32(np.floor(index))
+    x1 = np.int32(x0 + 1)
     delta = (index - x0)
 
     return (frames[x0] * (1.0 - delta)) + (frames[x1] * delta)
