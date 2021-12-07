@@ -45,9 +45,9 @@ def interpolate_frames(frames, index):
     x1 = np.int32(x0 + 1)
     delta = (index - x0)
 
-    return (frames[x0] * (1.0 - delta)) + (frames[x1] * delta)
+    return ((frames[x0] * (1.0 - delta)) + (frames[x1] * delta)).astype(np.uint8)
 
-indices = np.exp(np.linspace(0.0, 1.0, (args.fps * args.length))) * len(frames)
+indices = np.exp(np.linspace(0.0, 1.0, (args.fps * args.length))) * (len(frames) - 1)
 
 imageio.mimwrite(f'{args.output}.gif', [*[interpolate_frames(frames, index) for index in indices],
                                         *[interpolate_frames(frames, index) for index in indices[::-1]]], fps=args.fps)
