@@ -34,7 +34,7 @@ style_transfer = StyleTransfer()
 transfer_img = style_transfer.transfer(content_img, style_img, noise=args.style_noise, num_steps=args.style_iter)
 
 # 'inception4e', 'inception3b', 'inception4c', 'inception4d',
-deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception3b', 'inception4d'], step_size=0.01)
+deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception3b'], step_size=0.01)
 frames = [tensor_to_image(content_img), tensor_to_image(transfer_img),
           *map(tensor_to_image, deep_dream.dream_sequence(transfer_img, frames=(args.fps * args.length),
                                                           rotate=np.random.uniform(-0.2, 0.2)))]
