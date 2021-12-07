@@ -24,8 +24,8 @@ def serve_images_index():
 
     elif request.method == "POST":
 
-        with open('upload.txt', 'w') as fp:
-            fp.write(json.dumps(request.form))
+        # with open('upload.txt', 'w') as fp:
+        #     fp.write(json.dumps(request.form))
 
         return redirect('/')
 
