@@ -39,7 +39,7 @@ frames = [tensor_to_image(content_img), tensor_to_image(transfer_img), *map(tens
 
 def interpolate_frames(frames, index):
 
-    index = (index * 0.9999) + 0.00001
+    index = (index * (len(frames) - 1) * 0.9999) + 0.00001
 
     x0 = np.int32(np.floor(index))
     x1 = np.int32(x0 + 1)
@@ -52,7 +52,7 @@ def interpolate_frames(frames, index):
 def easeInOutCirc(x):
     return ((1 - np.sqrt(1 - np.power(2 * x, 2))) / 2) if (x < 0.5) else ((np.sqrt(1 - np.power(-2 * x + 2, 2)) + 1) / 2)
 
-indices = list(map(easeInOutCirc, np.linspace(0.0, 1.0, (args.fps * args.length)))) * (len(frames) - 1)
+indices = list(map(easeInOutCirc, np.linspace(0.0, 1.0, (args.fps * args.length))))
 
 print(indices)
 
