@@ -13,10 +13,10 @@ parser = argparse.ArgumentParser(description="Generate Style-Transfer image and 
 
 parser.add_argument("--style", required=True, help="File path to style image")
 parser.add_argument("--content", required=True, help="File path to content image")
-parser.add_argument("--style_iter", type=int, default=50, help="Style transfer iterations")
-parser.add_argument("--style_noise", type=float, default=0.1, help="Magnitude of noise to add for style transfer")
+parser.add_argument("--style_iter", type=int, default=100, help="Style transfer iterations")
+parser.add_argument("--style_noise", type=float, default=0.05, help="Magnitude of noise to add for style transfer")
 
-parser.add_argument("--dream_iter", type=int, default=10, help="Dream per frame gradient ascent iterations")
+parser.add_argument("--dream_iter", type=int, default=5, help="Dream per frame gradient ascent iterations")
 
 parser.add_argument("--size", type=int, default=512, help="Output resolution")
 parser.add_argument("--fps", type=int, default=24, help="Output GIF framerate")
@@ -34,7 +34,7 @@ style_transfer = StyleTransfer()
 transfer_img = style_transfer.transfer(content_img, style_img, noise=args.style_noise, num_steps=args.style_iter)
 
 # 'inception4e', 'inception3b', 'inception4c', 'inception4d',
-deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception4c', 'inception4d'], step_size=0.005)
+deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception3b', 'inception4d'], step_size=0.01)
 frames = [tensor_to_image(content_img), tensor_to_image(transfer_img),
           *map(tensor_to_image, deep_dream.dream_sequence(transfer_img, frames=(args.fps * args.length),
                                                           rotate=np.random.uniform(-0.2, 0.2)))]
