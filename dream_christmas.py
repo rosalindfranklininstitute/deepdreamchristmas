@@ -49,7 +49,7 @@ def interpolate_frames(frames, index):
 
     return ((frames[x0] * (1.0 - delta)) + (frames[x1] * delta)).astype(np.uint8)
 
-indices = np.exp(np.linspace(0.0, 1.0, (args.fps * args.length))) * (len(frames) - 1)
+indices = (np.linspace(0.0, 1.0, (args.fps * args.length))) * (len(frames) - 1)
 
 print(indices)
 
