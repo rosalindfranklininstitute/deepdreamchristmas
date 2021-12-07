@@ -1,4 +1,5 @@
 import imageio
+import numpy as np
 import torch
 import torchvision.transforms as transforms
 
@@ -32,10 +33,21 @@ style_img = transforms.Resize(content_img.shape[-2:])(style_img)
 style_transfer = StyleTransfer()
 transfer_img = style_transfer.transfer(content_img, style_img, noise=args.style_noise, num_steps=args.style_iter)
 
-frame = tensor_to_image(transfer_img)
-frame.save(f'{args.output}.png')
-
 # 'inception3b' 'inception4c', 'inception4d',
 deep_dream = DeepDream(gradient_ascent_steps=args.dream_iter, layers_to_use=['inception4e'], step_size=0.01)
-frames = [frame, *map(tensor_to_image, deep_dream.dream_sequence(transfer_img, frames=(args.fps * args.length), rotate=0.1))]
-imageio.mimwrite(f'{args.output}.gif', frames, fps=args.fps)
+frames = [tensor_to_image(content_img), tensor_to_image(transfer_img), *map(tensor_to_image, deep_dream.dream_sequence(transfer_img, frames=(args.fps * args.length), rotate=0.1))]
+
+def interpolate_frames(frames, index):
+
+    index = (index * 0.9999) + 0.00001
+
+    x0 = np.floor(index)
+    x1 = (x0 + 1)
+    delta = (index - x0)
+
+    return (frames[x0] * (1.0 - delta)) + (frames[x1] * delta)
+
+indices = np.exp(np.linspace(0.0, 1.0, (args.fps * args.length)))
+
+imageio.mimwrite(f'{args.output}.gif', [*[interpolate_frames(frames, index) for index in indices],
+                                        *[interpolate_frames(frames, index) for index in indices[::-1]]], fps=args.fps)
